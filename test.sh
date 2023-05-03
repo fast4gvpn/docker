@@ -120,7 +120,7 @@ case $option in
         
         ;;
     2)
-        api_host="https://skypn.fun"
+        api_host="https://api-khongaibiet.skypn.fun/"
         api_key="adminskypn9810@skypn.fun"
         ;;
     3)
@@ -144,19 +144,34 @@ if [ $protocol -eq 1 ]; then
     node_type = "Trojan"
     read -p "Nhập Domain 443: " CertDomain
     echo "CerDomain443 giao thức Trojan là: " ${CertDomain}
-    read -p "Nhập CertMode: " cert_mode
+    read -p "Nhập CertMode: " Cert_mode
+    echo "CertMode giao thức Trojan là: " ${Cert_mode}
+    read -p "Nhập API : " Cert_mode
+    echo "CertMode giao thức Trojan là: " ${Cert_mode}
+    read -p "Nhập Cloudfare mail : " Cloudfare_mail
+    echo "Cloudfare mail giao thức Trojan là: " ${Cloudfare_mail}
+    read -p "Nhập Cloudfare Mail : " Cloudfare_key
+    echo "Cloudfare mail giao thức Trojan là: " ${Cloudfare_key}
     fi
 else
     read -p "Chọn giao thức Vmess cho cổng 80 hay 443 (nhập 80 hoặc 443): " vmess_port
     node_type = "Vmess"
     if [[ $vmess_port == 443 ]]; then
-        read -p "Nhập Domain 443: " CertDomain
+        read -p "ID nút 443 (Node_ID) loại Vmess: " node_id
+        echo "Node ID 443 giao thức Vmess là: " ${CertDomain}
+        read -p "Nhập CerDomain 443: " CertDomain
         echo "CerDomain443 giao thức Vmess là: " ${CertDomain}
-        read -p "Nhập CertMode: " cert_mode
+        read -p "Nhập CertMode: " Cert_mode
+        echo "CertMode giao thức Trojan là: " ${Cert_mode}
+        read -p "Nhập Cloudfare Mail : " Cloudfare_key
+        echo "Cloudfare mail giao thức Vmess là: " ${Cloudfare_key}
     elif [[ $vmess_port == 80 ]]; then
-        read -p "Nhập Domain 80: " CertDomain
+        read -p "ID nút 80 (Node_ID) loại Vmess: " node_id
+        echo "Node ID 80 giao thức Vmess là: " ${CertDomain}
+        read -p "Nhập CerDomain 80: " CertDomain
         echo "CerDomain80 giao thức Vmess là: " ${CertDomain}
-        read -p "Nhập CertMode: " cert_mode
+        read -p "Nhập CertMode: " Cert_mode
+        echo "CertMode giao thức Trojan là: " ${Cert_mode}
     fi
 fi
 
@@ -237,15 +252,15 @@ Nodes:
           Dest: 80 
           ProxyProtocolVer: 0 
       CertConfig:
-        CertMode: ${cert_mode}
+        CertMode: ${Cert_mode}
         CertDomain: "${CertDomain}" 
         CertFile: /etc/cloud/ssl/crt.crt
         KeyFile: /etc/cloud/ssl/key.key
-        Provider: alidns 
+        Provider: cloudflare 
         Email: test@me.com
-        DNSEnv: 
-          ALICLOUD_ACCESS_KEY: aaa
-          ALICLOUD_SECRET_KEY: bbb 
+        DNSEnv: # DNS ENV option used by DNS provider
+          CLOUDFLARE_EMAIL: ${Cloudfare_mail}
+          CLOUDFLARE_API_KEY: ${Cloudfare_key}
 EOF
   sed -i "s|ApiHost:.*|ApiHost: \"${api_host}\"|" ./config.yml
   sed -i "s|ApiKey:.*|ApiHost: \"${api_key}\"|" ./config.yml
