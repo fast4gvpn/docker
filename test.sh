@@ -107,8 +107,6 @@ error_detect_depends() {
 pre_install_docker_compose() {
   #!/bin/bash
 
-#!/bin/bash
-
 echo "Chọn một tùy chọn:"
 echo "[1] fast4g.me"
 echo "[2] skypn.fun"
@@ -175,8 +173,6 @@ elif [ $protocol -eq 2 ]; then
         Cloudfare_key="abc"
         Cloudfare_mail="abc"
 fi
-
-
   
 }
 
