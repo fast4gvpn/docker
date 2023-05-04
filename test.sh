@@ -175,7 +175,7 @@ elif [ $protocol -eq 2 ]; then
     else
         echo "Lỗi: Giao thức Vmess chỉ hỗ trợ cổng 80 và 443"
         exit 1
-fi
+
 }
 
 # Config docker
