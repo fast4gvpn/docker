@@ -107,6 +107,8 @@ error_detect_depends() {
 pre_install_docker_compose() {
   #!/bin/bash
 
+#!/bin/bash
+
 echo "Chọn một tùy chọn:"
 echo "[1] fast4g.me"
 echo "[2] skypn.fun"
@@ -117,10 +119,9 @@ case $option in
     1)
         api_host="https://api-bimat188.fast4g.me/"
         api_key="adminhoang9810a@fast4g.net"
-        
         ;;
     2)
-        api_host="https://api-khongaibiet.skypn.fun/"
+        api_host="https://skypn.fun"
         api_key="adminskypn9810@skypn.fun"
         ;;
     3)
@@ -140,40 +141,41 @@ read -p "Tùy chọn của bạn (1-2): " protocol
 
 if [ $protocol -eq 1 ]; then
     read -p "ID nút 443 (Node_ID): " node_id
-    echo "Node ID 443 giao thức Trojan là: " ${CertDomain}
-    node_type = "Trojan"
-    read -p "Nhập Domain 443: " CertDomain
-    echo "CerDomain443 giao thức Trojan là: " ${CertDomain}
+    echo "Node ID 443 giao thức Trojan là: $node_id"
+    node_type="Trojan"
+    read -p "Nhập DNS CerDomain 443: " CertDomain
+    echo " DNS CerDomain443 với giao thức Trojan là: $CertDomain"
     read -p "Nhập CertMode: " Cert_mode
-    echo "CertMode giao thức Trojan là: " ${Cert_mode}
-    read -p "Nhập API : " Cert_mode
-    echo "CertMode giao thức Trojan là: " ${Cert_mode}
-    read -p "Nhập Cloudfare mail : " Cloudfare_mail
-    echo "Cloudfare mail giao thức Trojan là: " ${Cloudfare_mail}
-    read -p "Nhập Cloudfare Mail : " Cloudfare_key
-    echo "Cloudfare mail giao thức Trojan là: " ${Cloudfare_key}
-    fi
-else
+    echo "CertMode cổng 443 với giao thức Trojan là: $Cert_mode"
+    read -p "Nhập Cloudfare mail: " Cloudfare_mail
+    echo "Cloudfare mail giao thức Trojan là: $Cloudfare_mail"
+    read -p "Nhập Cloudfare Mail: " Cloudfare_key
+    echo "Cloudfare mail giao thức Trojan là: $Cloudfare_key"
+elif [ $protocol -eq 2 ]; then
     read -p "Chọn giao thức Vmess cho cổng 80 hay 443 (nhập 80 hoặc 443): " vmess_port
-    node_type = "Vmess"
+    node_type="Vmess"
     if [[ $vmess_port == 443 ]]; then
         read -p "ID nút 443 (Node_ID) loại Vmess: " node_id
-        echo "Node ID 443 giao thức Vmess là: " ${CertDomain}
-        read -p "Nhập CerDomain 443: " CertDomain
-        echo "CerDomain443 giao thức Vmess là: " ${CertDomain}
+        echo "Node ID 443 giao thức Vmess là: $node_id"
+        read -p "Nhập DNS CerDomain 443: " CertDomain
+        echo "DNS CerDomain443 giao thức Vmess là: $CertDomain"
         read -p "Nhập CertMode: " Cert_mode
-        echo "CertMode giao thức Trojan là: " ${Cert_mode}
-        read -p "Nhập Cloudfare Mail : " Cloudfare_key
-        echo "Cloudfare mail giao thức Vmess là: " ${Cloudfare_key}
+        echo "CertMode cổng 443 với giao thức Vmess là: $Cert_mode"
+        read -p "Nhập Cloudfare Mail: " Cloudfare_mail
+        echo "Cloudfare mail giao thức Vmess là: " ${Cloudfare_mail}
+        read -p "Nhập Cloudfare Key API: " Cloudfare_key
+        echo "Cloudfare mail giao thức Vmess là: $Cloudfare_key"
     elif [[ $vmess_port == 80 ]]; then
         read -p "ID nút 80 (Node_ID) loại Vmess: " node_id
-        echo "Node ID 80 giao thức Vmess là: " ${CertDomain}
-        read -p "Nhập CerDomain 80: " CertDomain
-        echo "CerDomain80 giao thức Vmess là: " ${CertDomain}
+        echo "Node ID 80 giao thức Vmess là: " ${node_id}
+        read -p "Nhập DNS CerDomain 80: " CertDomain
+        echo "DNS CerDomain80 với giao thức Vmess là: " ${CertDomain}
         read -p "Nhập CertMode: " Cert_mode
-        echo "CertMode giao thức Trojan là: " ${Cert_mode}
-    fi
+        echo "CertMode cổng 80 với giao thức Vmess là: $Cert_mode"
+        Cloudfare_key="abc"
+        Cloudfare_mail="abc"
 fi
+
 
   
 }
