@@ -105,7 +105,6 @@ error_detect_depends() {
 
 # Pre-installation settings
 pre_install_docker_compose() {
-  #!/bin/bash
 
 echo "Chọn một tùy chọn:"
 echo "[1] fast4g.me"
@@ -150,29 +149,34 @@ if [ $protocol -eq 1 ]; then
     read -p "Nhập Cloudfare Mail: " Cloudfare_key
     echo "Cloudfare mail giao thức Trojan là: $Cloudfare_key"
 elif [ $protocol -eq 2 ]; then
-    read -p "Chọn giao thức Vmess cho cổng 80 hay 443 (nhập 80 hoặc 443): " vmess_port
+    read -p "Chọn giao thức Vmess cho cổng 80 hoặc 443 (nhập 80 hoặc 443): " vmess_port
     node_type="Vmess"
+
     if [[ $vmess_port == 443 ]]; then
         read -p "ID nút 443 (Node_ID) loại Vmess: " node_id
         echo "Node ID 443 giao thức Vmess là: $node_id"
         read -p "Nhập DNS CerDomain 443: " CertDomain
-        echo "DNS CerDomain443 giao thức Vmess là: $CertDomain"
+        echo "DNS CerDomain 443 giao thức Vmess là: \"$CertDomain\""
         read -p "Nhập CertMode: " Cert_mode
         echo "CertMode cổng 443 với giao thức Vmess là: $Cert_mode"
         read -p "Nhập Cloudfare Mail: " Cloudfare_mail
-        echo "Cloudfare mail giao thức Vmess là: " ${Cloudfare_mail}
+        echo "Cloudfare mail giao thức Vmess là: \"$Cloudfare_mail\""
         read -p "Nhập Cloudfare Key API: " Cloudfare_key
-        echo "Cloudfare mail giao thức Vmess là: $Cloudfare_key"
+        echo "Cloudfare key API giao thức Vmess là: \"$Cloudfare_key\""
     elif [[ $vmess_port == 80 ]]; then
         read -p "ID nút 80 (Node_ID) loại Vmess: " node_id
-        echo "Node ID 80 giao thức Vmess là: " ${node_id}
+        echo "Node ID 80 giao thức Vmess là: $node_id"
         read -p "Nhập DNS CerDomain 80: " CertDomain
-        echo "DNS CerDomain80 với giao thức Vmess là: " ${CertDomain}
+        echo "DNS CerDomain 80 với giao thức Vmess là: \"$CertDomain\""
         read -p "Nhập CertMode: " Cert_mode
         echo "CertMode cổng 80 với giao thức Vmess là: $Cert_mode"
         Cloudfare_key="abc"
         Cloudfare_mail="abc"
+    else
+        echo "Lỗi: Giao thức Vmess chỉ hỗ trợ cổng 80 và 443"
+        exit 1
 fi
+
   
 }
 
