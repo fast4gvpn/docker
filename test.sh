@@ -118,7 +118,7 @@ case $option in
         api_key="adminhoang9810a@fast4g.net"
         ;;
     2)
-        api_host="https://skypn.fun"
+        api_host="https://api-khongaibiet.skypn.fun/"
         api_key="adminskypn9810@skypn.fun"
         ;;
     3)
@@ -177,7 +177,7 @@ elif [ $protocol -eq 2 ]; then
         exit 1
 fi
 }
-
+}
 # Config docker
 config_docker() {
   cd ${cur_dir} || exit
