@@ -150,7 +150,7 @@ if [ $protocol -eq 1 ]; then
     echo "Cloudfare mail giao thức Trojan là: $Cloudfare_key"
 elif [ $protocol -eq 2 ]; then
     read -p "Chọn giao thức Vmess cho cổng 80 hoặc 443 (nhập 80 hoặc 443): " vmess_port
-    node_type="Vmess"
+    node_type="V2ray"
 
     if [[ $vmess_port == 443 ]]; then
         read -p "ID nút 443 (Node_ID) loại Vmess: " node_id
@@ -287,6 +287,10 @@ systemctl enable docker
 curl -fsSL https://get.docker.com | bash -s docker
 curl -L "https://github.com/docker/compose/releases/download/1.26.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 chmod +x /usr/local/bin/docker-compose
+sudo ufw allow 80/tcp
+sudo ufw allow 443/tcp
+sudo ufw allow 80
+sudo ufw allow 443
   cd /etc/cloud
   mkdir ssl
   cd /etc/cloud/ssl
