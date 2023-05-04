@@ -401,7 +401,7 @@ while true; do
     hint="${operation[$i - 1]}"
     echo -e "${green}${i}${plain}) ${hint}"
   done
-  read -p "Vui lòng chọn một số và nhấn Enter (Enter theo mặc định ${operation[0]}):" selected
+  read -p "Vui lòng chọn một số và nhấn Enter (Enter theo mặc định ${operation[0]}): " selected
   [ -z "${selected}" ] && selected="1"
   case "${selected}" in
   1 | 2 | 3 | 4 | 5 | 6 | 7)
