@@ -255,8 +255,8 @@ Nodes:
       CertConfig:
         CertMode: ${Cert_mode}
         CertDomain: "${CertDomain}" 
-        CertFile: /etc/cloud/ssl/crt.crt
-        KeyFile: /etc/cloud/ssl/key.key
+        CertFile: $PWD/crt.crt
+        KeyFile: $PWD/key.key
         Provider: cloudflare 
         Email: test@me.com
         DNSEnv: # DNS ENV option used by DNS provider
@@ -291,11 +291,7 @@ sudo ufw allow 80/tcp
 sudo ufw allow 443/tcp
 sudo ufw allow 80
 sudo ufw allow 443
-  cd /etc/cloud
-  mkdir ssl
-  cd /etc/cloud/ssl
-  git clone https://github.com/chaomynhan/ssl.git
-  cd
+  touch crt.crt key.key
   echo "Khởi động Docker "
   service docker start
   echo "Khởi động Docker-Compose "
