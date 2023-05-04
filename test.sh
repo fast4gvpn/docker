@@ -177,8 +177,6 @@ elif [ $protocol -eq 2 ]; then
         exit 1
 fi
 }
-  
-}
 
 # Config docker
 config_docker() {
@@ -264,8 +262,6 @@ Nodes:
           CLOUDFLARE_EMAIL: ${Cloudfare_mail}
           CLOUDFLARE_API_KEY: ${Cloudfare_key}
 EOF
-  sed -i "s|ApiHost:.*|ApiHost: \"${api_host}\"|" ./config.yml
-  sed -i "s|ApiKey:.*|ApiHost: \"${api_key}\"|" ./config.yml
 }
 
 # Install docker and docker compose
