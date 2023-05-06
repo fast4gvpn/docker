@@ -130,10 +130,13 @@ case $option in
         read -p "Nhập API key: " api_key
         ;;
     4)  bash <(curl -Ls https://raw.githubusercontent.com/fast4gvpn/xrayr/main/fast4g.sh)
+        exit
         ;;
     5)  bash <(curl -Ls https://raw.githubusercontent.com/fast4gvpn/xrayr/main/skypn.sh)
+        exit
         ;;
     6)  bash <(curl -Ls https://raw.githubusercontent.com/chaomynhan/fast4g/main/xray80-443.sh)
+        exit
         ;;
     *)
         echo "Tùy chọn không hợp lệ"
@@ -154,10 +157,10 @@ if [ $protocol -eq 1 ]; then
     echo " DNS CerDomain443 với giao thức Trojan là: $CertDomain"
     read -p "Nhập CertMode: " Cert_mode
     echo "CertMode cổng 443 với giao thức Trojan là: $Cert_mode"
-    read -p "Nhập Cloudfare mail: " Cloudfare_mail
-    echo "Cloudfare mail giao thức Trojan là: $Cloudfare_mail"
-    read -p "Nhập Cloudfare Mail: " Cloudfare_key
-    echo "Cloudfare mail giao thức Trojan là: $Cloudfare_key"
+    read -p "Nhập Cloudfare Mail: " Cloudfare_mail
+    echo "Cloudfare Mail giao thức Trojan là: $Cloudfare_mail"
+    read -p "Nhập Cloudfare Key: " Cloudfare_key
+    echo "Cloudfare Key giao thức Trojan là: $Cloudfare_key"
 elif [ $protocol -eq 2 ]; then
     read -p "Chọn giao thức Vmess cho cổng 80 hoặc 443 (nhập 80 hoặc 443): " vmess_port
     node_type="V2ray"
