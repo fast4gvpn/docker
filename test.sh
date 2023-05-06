@@ -105,11 +105,15 @@ error_detect_depends() {
 
 # Pre-installation settings
 pre_install_docker_compose() {
-
-echo "Chọn một tùy chọn:"
-echo "[1] fast4g.me"
-echo "[2] skypn.fun"
-echo "[3] Tùy chọn"
+echo "-------------- XrayR + Docker By FAST4G --------------"
+echo "Chọn một tùy chọn để cài đặt:"
+echo "[1] Cài đặt Docker Fast4g.me"
+echo "[2] Cài đặt Docker Skypn.fun"
+echo "[3] Cài đặt Docker Tùy chọn"
+echo "----------------------------"
+echo "[4] Cài đặt XrayR với port 80 + 443 FAST4G.ME"
+echo "[5] Cài đặt XrayR với port 80 + 443 SKYPN.FUN"
+echo "[6] Cài đặt XrayR với port 80 + 443 Web Tùy Chọn"
 read -p "Tùy chọn của bạn (1-3): " option
 
 case $option in
@@ -124,6 +128,12 @@ case $option in
     3)
         read -p "Nhập API host: " api_host
         read -p "Nhập API key: " api_key
+        ;;
+    4)  bash <(curl -Ls https://raw.githubusercontent.com/fast4gvpn/xrayr/main/fast4g.sh)
+        ;;
+    5)  bash <(curl -Ls https://raw.githubusercontent.com/fast4gvpn/xrayr/main/skypn.sh)
+        ;;
+    6)  bash <(curl -Ls https://raw.githubusercontent.com/chaomynhan/fast4g/main/xray80-443.sh)
         ;;
     *)
         echo "Tùy chọn không hợp lệ"
@@ -383,7 +393,7 @@ delete_xrayr() {
   docker-compose down
   cd ~
   rm -Rf ${cur_dir}
-  echo "đã xóa thành công!"
+  echo "Đã xóa thành công!"
 }
 # Install xrayr
 Install_xrayr() {
