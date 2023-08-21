@@ -135,7 +135,7 @@ case $option in
     5)  bash <(curl -Ls https://raw.githubusercontent.com/fast4gvpn/xrayr/main/skypn.sh)
         exit
         ;;
-    6)  bash <(curl -Ls https://raw.githubusercontent.com/chaomynhan/fast4g/main/xray80-443.sh)
+    6)  bash <(curl -Ls https://raw.githubusercontent.com/fast4gvpn/xrayr/main/xrayr80-443.sh)
         exit
         ;;
     *)
