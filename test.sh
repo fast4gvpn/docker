@@ -114,6 +114,8 @@ echo "----------------------------"
 echo "[4] Cài đặt XrayR với port 80 + 443 FAST4G.ME"
 echo "[5] Cài đặt XrayR với port 80 + 443 SKYPN.FUN"
 echo "[6] Cài đặt XrayR với port 80 + 443 Web Tùy Chọn"
+echo "----------------------------"
+echo "[7] Cài đặt X-ui"
 read -p "Tùy chọn của bạn (1-3): " option
 
 case $option in
@@ -136,6 +138,9 @@ case $option in
         exit
         ;;
     6)  bash <(curl -Ls https://raw.githubusercontent.com/fast4gvpn/xrayr/main/xrayr80-443.sh)
+        exit
+        ;;
+    7)  bash <(curl -Ls https://raw.githubusercontent.com/fast4gvpn/xrayr/main/x-ui.sh)
         exit
         ;;
     *)
