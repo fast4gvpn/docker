@@ -9,7 +9,7 @@ red='\033[0;31m'
 green='\033[0;32m'
 #yellow='\033[0;33m'
 plain='\033[0m'
-operation=(Install Update UpdateConfig Logs Restart Delete OpenPort Speedtest Check_VPS Config_Key Config_Crt RestartXrayR)
+operation=(Install Update UpdateConfig Logs Restart Delete OpenPort Speedtest Check_VPS Config_Key Config_Crt RestartXrayR Nginx_Đa_Web)
 # Make sure only root can run our script
 [[ $EUID -ne 0 ]] && echo -e "[${red}Error${plain}] Chưa vào root kìa !, vui lòng xin phép ROOT trước!" && exit 1
 
@@ -452,6 +452,11 @@ Config_Crt_xrayr() {
 #Restart XrayR
 RestartXrayR_xrayr() {
   XrayR restart
+}
+
+#Nginx_Đa_Web
+Nginx_Đa_Web_xrayr() {
+  bash <(curl -Ls https://raw.githubusercontent.com/chaomynhan06/nginx/main/run.sh)
 }
 
 # Initialization step
