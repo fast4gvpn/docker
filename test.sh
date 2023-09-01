@@ -452,7 +452,7 @@ Config_Crt_xrayr() {
 # Initialization step
 clear
 while true; do
-  echo "----- Full XrayR + Docker FAST4G 80-443 -----"
+  echo "----- Tool Full XrayR + Docker FAST4G 80-443 -----"
   echo "Vui lòng nhập một số để Thực Hiện Câu Lệnh:"
   for ((i = 1; i <= ${#operation[@]}; i++)); do
     hint="${operation[$i - 1]}"
