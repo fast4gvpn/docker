@@ -154,13 +154,14 @@ case $option in
         sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
         sudo sysctl -w net.ipv6.conf.lo.disable_ipv6=1
         XrayR restart
-        exit
+        exit 1
         ;;
     9)  sudo apt update
         sudo apt-get install curl
         curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | sudo bash
         sudo apt-get install speedtest
         speedtest
+        exit 1
         ;;
     *)
         echo "Tùy chọn không hợp lệ"
