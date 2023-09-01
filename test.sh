@@ -471,7 +471,7 @@ while true; do
   read -p "Vui lòng chọn một số và nhấn Enter (Enter theo mặc định ${operation[0]}): " selected
   [ -z "${selected}" ] && selected="1"
   case "${selected}" in
-   1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 | 10 | 11 | 12 | 13)
+   1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 | 10 | 11 | 12 | 13 | 14)
     echo
     echo "Bắt Đầu : ${operation[${selected} - 1]}"
     echo
@@ -479,7 +479,7 @@ while true; do
     break
     ;;
   *)
-    echo -e "[${red}Error${plain}] Vui lòng nhập số chính xác [1-12]"
+    echo -e "[${red}Error${plain}] Vui lòng nhập số chính xác [1-13]"
     ;;
   esac
 done
