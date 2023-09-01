@@ -105,7 +105,7 @@ error_detect_depends() {
 
 # Pre-installation settings
 pre_install_docker_compose() {
-echo "-------------- XrayR + Docker By FAST4G --------------"
+echo "-------------- Tool XrayR + Docker By FAST4G --------------"
 echo "Chọn một tùy chọn để cài đặt:"
 echo "[1] Cài đặt Docker Fast4g.me"
 echo "[2] Cài đặt Docker Skypn.fun"
@@ -116,7 +116,10 @@ echo "[5] Cài đặt XrayR với port 80 + 443 SKYPN.FUN"
 echo "[6] Cài đặt XrayR với port 80 + 443 Web Tùy Chọn"
 echo "----------------------------"
 echo "[7] Cài đặt X-ui"
-read -p "Tùy chọn của bạn (1-3): " option
+echo "[8] Mở Port + Tắt Ipv6"
+echo "[9] Cài đặt Speedtest"
+echo "----------------------------"
+read -p "Tùy chọn của bạn (1-9): " option
 
 case $option in
     1)
@@ -143,6 +146,21 @@ case $option in
     7)  bash <(curl -Ls https://raw.githubusercontent.com/fast4gvpn/xrayr/main/x-ui.sh)
         exit
         ;;
+    8)  sudo ufw allow 80/tcp
+        sudo ufw allow 443/tcp
+        sudo ufw allow 80
+        sudo ufw allow 443
+        sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
+        sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
+        sudo sysctl -w net.ipv6.conf.lo.disable_ipv6=1
+        XrayR restart
+        exit
+        ;;
+    9)  sudo apt update
+        sudo apt-get install curl
+        curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | sudo bash
+        sudo apt-get install speedtest
+        speedtest
     *)
         echo "Tùy chọn không hợp lệ"
         exit 1
