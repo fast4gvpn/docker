@@ -432,6 +432,26 @@ Install_xrayr() {
   config_docker
   install_docker
 }
+# Open Port 
+OpenPort_xrayr() {
+        sudo ufw allow 80/tcp
+        sudo ufw allow 443/tcp
+        sudo ufw allow 80
+        sudo ufw allow 443
+        sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
+        sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
+        sudo sysctl -w net.ipv6.conf.lo.disable_ipv6=1
+        XrayR restart
+}
+
+#Install Speedtest
+Speedtest_xrayr() {
+        sudo apt update
+        sudo apt-get install curl
+        curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | sudo bash
+        sudo apt-get install speedtest
+        speedtest
+}
 
 # Initialization step
 clear
@@ -445,7 +465,7 @@ while true; do
   read -p "Vui lòng chọn một số và nhấn Enter (Enter theo mặc định ${operation[0]}): " selected
   [ -z "${selected}" ] && selected="1"
   case "${selected}" in
-  1 | 2 | 3 | 4 | 5 | 6 | 7)
+  1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 )
     echo
     echo "Bắt Đầu : ${operation[${selected} - 1]}"
     echo
@@ -453,7 +473,7 @@ while true; do
     break
     ;;
   *)
-    echo -e "[${red}Error${plain}] Vui lòng nhập số chính xác [1-6]"
+    echo -e "[${red}Error${plain}] Vui lòng nhập số chính xác [1-8]"
     ;;
   esac
 done
