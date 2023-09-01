@@ -9,7 +9,7 @@ red='\033[0;31m'
 green='\033[0;32m'
 #yellow='\033[0;33m'
 plain='\033[0m'
-operation=(Install Update UpdateConfig logs restart delete)
+operation=(Install Update UpdateConfig Logs Restart Delete OpenPort Speedtest)
 # Make sure only root can run our script
 [[ $EUID -ne 0 ]] && echo -e "[${red}Error${plain}] Chưa vào root kìa !, vui lòng xin phép ROOT trước!" && exit 1
 
@@ -116,8 +116,6 @@ echo "[5] Cài đặt XrayR với port 80 + 443 SKYPN.FUN"
 echo "[6] Cài đặt XrayR với port 80 + 443 Web Tùy Chọn"
 echo "----------------------------"
 echo "[7] Cài đặt X-ui"
-echo "[8] Mở Port + Tắt Ipv6"
-echo "[9] Cài đặt Speedtest"
 echo "----------------------------"
 read -p "Tùy chọn của bạn (1-9): " option
 
@@ -145,23 +143,6 @@ case $option in
         ;;
     7)  bash <(curl -Ls https://raw.githubusercontent.com/fast4gvpn/xrayr/main/x-ui.sh)
         exit
-        ;;
-    8)  sudo ufw allow 80/tcp
-        sudo ufw allow 443/tcp
-        sudo ufw allow 80
-        sudo ufw allow 443
-        sudo sysctl -w net.ipv6.conf.all.disable_ipv6=1
-        sudo sysctl -w net.ipv6.conf.default.disable_ipv6=1
-        sudo sysctl -w net.ipv6.conf.lo.disable_ipv6=1
-        XrayR restart
-        return
-        ;;
-    9)  sudo apt update
-        sudo apt-get install curl
-        curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | sudo bash
-        sudo apt-get install speedtest
-        speedtest
-        return
         ;;
     *)
         echo "Tùy chọn không hợp lệ"
