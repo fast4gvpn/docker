@@ -9,7 +9,7 @@ red='\033[0;31m'
 green='\033[0;32m'
 #yellow='\033[0;33m'
 plain='\033[0m'
-operation=( Install  Update  UpdateConfig  Logs  Restart  Delete  OpenPort  Speedtest  Check_VPS Config_Key Config_Crt)
+operation=(Install Update UpdateConfig Logs Restart Delete OpenPort Speedtest Check_VPS Config_Key Config_Crt RestartXrayR)
 # Make sure only root can run our script
 [[ $EUID -ne 0 ]] && echo -e "[${red}Error${plain}] Chưa vào root kìa !, vui lòng xin phép ROOT trước!" && exit 1
 
@@ -449,6 +449,11 @@ Config_Crt_xrayr() {
   nano /etc/XrayR/ssl/crt.crt
 }
 
+#Restart XrayR
+RestartXrayR_xrayr() {
+  XrayR restart
+}
+
 # Initialization step
 clear
 while true; do
@@ -461,7 +466,7 @@ while true; do
   read -p "Vui lòng chọn một số và nhấn Enter (Enter theo mặc định ${operation[0]}): " selected
   [ -z "${selected}" ] && selected="1"
   case "${selected}" in
-   1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 | 10 | 11 | 12)
+   1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 | 10 | 11 | 12 | 13)
     echo
     echo "Bắt Đầu : ${operation[${selected} - 1]}"
     echo
@@ -469,7 +474,7 @@ while true; do
     break
     ;;
   *)
-    echo -e "[${red}Error${plain}] Vui lòng nhập số chính xác [1-11]"
+    echo -e "[${red}Error${plain}] Vui lòng nhập số chính xác [1-12]"
     ;;
   esac
 done
