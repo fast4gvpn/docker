@@ -125,8 +125,8 @@ case $option in
         api_key="adminhoang9810a@fast4g.net"
         ;;
     2)
-        api_host="https://api-khongaibiet.skypn.fun/"
-        api_key="adminskypn9810@skypn.fun"
+        api_host="https://api-khongaibiet.skypn.me/"
+        api_key="adminskypn9810@skypn.me"
         ;;
     3)
         read -p "Nhập API host: " api_host
