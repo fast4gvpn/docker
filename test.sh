@@ -9,7 +9,7 @@ red='\033[0;31m'
 green='\033[0;32m'
 #yellow='\033[0;33m'
 plain='\033[0m'
-operation=(Install Update UpdateConfig Logs Restart Delete OpenPort Speedtest Check_VPS Config_Key Config_Crt RestartXrayR Nginx_Đa_Web)
+operation=(Install Update UpdateConfig Logs Restart Delete OpenPort Speedtest Check_VPS Config_Key Config_Crt RestartXrayR ConfigXrayR UninstallXrayR Nginx_Đa_Web)
 # Make sure only root can run our script
 [[ $EUID -ne 0 ]] && echo -e "[${red}Error${plain}] Chưa vào root kìa !, vui lòng xin phép ROOT trước!" && exit 1
 
@@ -117,7 +117,7 @@ echo "[6] Cài đặt XrayR với port 80 + 443 Web Tùy Chọn"
 echo "----------------------------"
 echo "[7] Cài đặt X-ui"
 echo "----------------------------"
-read -p "Tùy chọn của bạn (1-9): " option
+read -p "Tùy chọn của bạn (1-7): " option
 
 case $option in
     1)
@@ -454,6 +454,16 @@ RestartXrayR_xrayr() {
   XrayR restart
 }
 
+#ConfigXrayR
+ConfigXrayR_xrayr() {
+  nano /etc/XrayR/config.yml
+}
+
+#UninstallXrayR
+UninstallXrayR_xrayr() {
+  XrayR uninstall
+}
+
 #Nginx_Đa_Web
 Nginx_Đa_Web_xrayr() {
   bash <(curl -Ls https://raw.githubusercontent.com/chaomynhan06/nginx/main/run.sh)
@@ -471,7 +481,7 @@ while true; do
   read -p "Vui lòng chọn một số và nhấn Enter (Enter theo mặc định ${operation[0]}): " selected
   [ -z "${selected}" ] && selected="1"
   case "${selected}" in
-   1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 | 10 | 11 | 12 | 13 | 14)
+   1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 | 10 | 11 | 12 | 13 | 14 | 15 | 16)
     echo
     echo "Bắt Đầu : ${operation[${selected} - 1]}"
     echo
@@ -479,7 +489,7 @@ while true; do
     break
     ;;
   *)
-    echo -e "[${red}Error${plain}] Vui lòng nhập số chính xác [1-13]"
+    echo -e "[${red}Error${plain}] Vui lòng nhập số chính xác [1-16]"
     ;;
   esac
 done
