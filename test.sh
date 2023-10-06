@@ -121,7 +121,7 @@ read -p "Tùy chọn của bạn (1-7): " option
 
 case $option in
     1)
-        api_host="https://api-bimat188.fast4g.me/"
+        api_host="https://api-bimat188.fast4g.vn/"
         api_key="adminhoang9810a@fast4g.net"
         ;;
     2)
