@@ -9,7 +9,7 @@ red='\033[0;31m'
 green='\033[0;32m'
 #yellow='\033[0;33m'
 plain='\033[0m'
-operation=(Install Update UpdateConfig Logs Restart Delete OpenPort Speedtest_Ubuntu Speedtest_Centos Check_VPS Config_Key Config_Crt RestartXrayR ConfigXrayR UninstallXrayR Nginx_Đa_Web)
+operation=(Install Update UpdateConfig Logs Restart Delete OpenPort Speedtest_Ubuntu Speedtest_Centos Check_VPS Config_Key Config_Crt RestartXrayR ConfigXrayR UninstallXrayR Test_DowFile CSF_Chan_Port Nginx_Đa_Web)
 # Make sure only root can run our script
 [[ $EUID -ne 0 ]] && echo -e "[${red}Error${plain}] Chưa vào root kìa !, vui lòng xin phép ROOT trước!" && exit 1
 
@@ -439,6 +439,7 @@ Speedtest_Centos_xrayr() {
         yum update -y
         curl -s https://install.speedtest.net/app/cli/install.rpm.sh | sudo bash
         sudo yum install speedtest
+        speedtest
 }
 
 #Check VPS
@@ -471,6 +472,22 @@ UninstallXrayR_xrayr() {
   XrayR uninstall
 }
 
+#Test_DowFile
+Test_DowFile_xrayr() {
+  wget --no-dns-cache --no-cache --delete-after http://speedtest-vdc.vinahost.vn/files/1000MBvnh.bin
+}
+
+#CSF_Chan_Port
+CSF_Chan_Port_xrayr() {
+  cd /usr/src/
+  wget 'https://download.configserver.com/csf.tgz'
+  tar -xvf csf.tgz
+  cd csf
+  sh install.sh
+  cd /etc/csf/
+  /usr/sbin/csf -tf && /usr/sbin/csf -df && /usr/sbin/csf -r && /usr/sbin/csf -q && service lfd restart
+}
+
 #Nginx_Đa_Web
 Nginx_Đa_Web_xrayr() {
   bash <(curl -Ls https://raw.githubusercontent.com/chaomynhan06/nginx/main/run.sh)
@@ -488,7 +505,7 @@ while true; do
   read -p "Vui lòng chọn một số và nhấn Enter (Enter theo mặc định ${operation[0]}): " selected
   [ -z "${selected}" ] && selected="1"
   case "${selected}" in
-   1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17)
+   1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19)
     echo
     echo "Bắt Đầu : ${operation[${selected} - 1]}"
     echo
@@ -496,7 +513,7 @@ while true; do
     break
     ;;
   *)
-    echo -e "[${red}Error${plain}] Vui lòng nhập số chính xác [1-17]"
+    echo -e "[${red}Error${plain}] Vui lòng nhập số chính xác [1-19]"
     ;;
   esac
 done
