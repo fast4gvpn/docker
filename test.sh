@@ -435,7 +435,7 @@ Speedtest_Ubuntu_xrayr() {
 }
 
 #Install Speedtest_Centos
-Speedtest_Ubuntu_xrayr() {
+Speedtest_Centos_xrayr() {
         yum update -y
         curl -s https://install.speedtest.net/app/cli/install.rpm.sh | sudo bash
         sudo yum install speedtest
