@@ -9,7 +9,7 @@ red='\033[0;31m'
 green='\033[0;32m'
 #yellow='\033[0;33m'
 plain='\033[0m'
-operation=(Install Update UpdateConfig Logs Restart Delete OpenPort Speedtest_Ubuntu Speedtest_Centos Check_VPS Config_Key Config_Crt RestartXrayR ConfigXrayR UninstallXrayR Test_DowFile CSF_Chan_Port Nginx_Đa_Web)
+operation=(Install Update UpdateConfig Logs Restart Delete OpenPort Speedtest_Ubuntu Speedtest_Centos Check_VPS Config_Key Config_Crt RestartXrayR ConfigXrayR UninstallXrayR Test_DowFile CSF_Chan_Port Nginx_Đa_Web CopyFile)
 # Make sure only root can run our script
 [[ $EUID -ne 0 ]] && echo -e "[${red}Error${plain}] Chưa vào root kìa !, vui lòng xin phép ROOT trước!" && exit 1
 
@@ -493,6 +493,29 @@ Nginx_Đa_Web_xrayr() {
   bash <(curl -Ls https://raw.githubusercontent.com/chaomynhan06/nginx/main/run.sh)
 }
 
+#CopyFile
+CopyFile_xrayr() {
+      # Nhập địa chỉ IP của VPS đích
+      read -p "Nhập IP của VPS đích: " remote_ip
+      
+      # Nhập đường dẫn hiện tại của tệp
+      read -p "Nhập đường dẫn của tệp hiện tại: " source_path
+      
+      # Nhập đường dẫn đích trên VPS đích
+      read -p "Nhập đường dẫn trên VPS đích: " destination_path
+      
+      # Sử dụng lệnh scp để truyền tệp từ VPS này sang VPS khác
+      scp $source_path root@$remote_ip:$destination_path
+      
+      # Kiểm tra xem truyền tệp thành công hay không
+      if [ $? -eq 0 ]; then
+          echo "Truyền tệp thành công!"
+      else
+          echo "Lỗi trong quá trình truyền tệp."
+      fi
+
+}
+
 # Initialization step
 clear
 while true; do
@@ -505,7 +528,7 @@ while true; do
   read -p "Vui lòng chọn một số và nhấn Enter (Enter theo mặc định ${operation[0]}): " selected
   [ -z "${selected}" ] && selected="1"
   case "${selected}" in
-   1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19)
+   1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20)
     echo
     echo "Bắt Đầu : ${operation[${selected} - 1]}"
     echo
@@ -513,7 +536,7 @@ while true; do
     break
     ;;
   *)
-    echo -e "[${red}Error${plain}] Vui lòng nhập số chính xác [1-19]"
+    echo -e "[${red}Error${plain}] Vui lòng nhập số chính xác [1-20]"
     ;;
   esac
 done
