@@ -9,7 +9,7 @@ red='\033[0;31m'
 green='\033[0;32m'
 #yellow='\033[0;33m'
 plain='\033[0m'
-operation=(Install Update UpdateConfig Logs Restart Delete OpenPort Speedtest Check_VPS Config_Key Config_Crt RestartXrayR ConfigXrayR UninstallXrayR Nginx_Đa_Web)
+operation=(Install Update UpdateConfig Logs Restart Delete OpenPort Speedtest_Ubuntu Speedtest_Centos Check_VPS Config_Key Config_Crt RestartXrayR ConfigXrayR UninstallXrayR Nginx_Đa_Web)
 # Make sure only root can run our script
 [[ $EUID -ne 0 ]] && echo -e "[${red}Error${plain}] Chưa vào root kìa !, vui lòng xin phép ROOT trước!" && exit 1
 
@@ -107,12 +107,12 @@ error_detect_depends() {
 pre_install_docker_compose() {
 echo "-------------- Tool XrayR + Docker By FAST4G --------------"
 echo "Chọn một tùy chọn để cài đặt:"
-echo "[1] Cài đặt Docker Fast4g.me"
-echo "[2] Cài đặt Docker Skypn.fun"
+echo "[1] Cài đặt Docker Fast4g.vn"
+echo "[2] Cài đặt Docker Skypn.me"
 echo "[3] Cài đặt Docker Tùy chọn"
 echo "----------------------------"
-echo "[4] Cài đặt XrayR với port 80 + 443 FAST4G.ME"
-echo "[5] Cài đặt XrayR với port 80 + 443 SKYPN.FUN"
+echo "[4] Cài đặt XrayR với port 80 + 443 FAST4G.VN"
+echo "[5] Cài đặt XrayR với port 80 + 443 SKYPN.ME"
 echo "[6] Cài đặt XrayR với port 80 + 443 Web Tùy Chọn"
 echo "----------------------------"
 echo "[7] Cài đặt X-ui"
@@ -425,13 +425,20 @@ OpenPort_xrayr() {
         XrayR restart
 }
 
-#Install Speedtest
-Speedtest_xrayr() {
+#Install Speedtest_Ubuntu
+Speedtest_Ubuntu_xrayr() {
         sudo apt update
         sudo apt-get install curl
         curl -s https://packagecloud.io/install/repositories/ookla/speedtest-cli/script.deb.sh | sudo bash
         sudo apt-get install speedtest
         speedtest
+}
+
+#Install Speedtest_Centos
+Speedtest_Ubuntu_xrayr() {
+        yum update -y
+        curl -s https://install.speedtest.net/app/cli/install.rpm.sh | sudo bash
+        sudo yum install speedtest
 }
 
 #Check VPS
@@ -481,7 +488,7 @@ while true; do
   read -p "Vui lòng chọn một số và nhấn Enter (Enter theo mặc định ${operation[0]}): " selected
   [ -z "${selected}" ] && selected="1"
   case "${selected}" in
-   1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 | 10 | 11 | 12 | 13 | 14 | 15 | 16)
+   1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17)
     echo
     echo "Bắt Đầu : ${operation[${selected} - 1]}"
     echo
@@ -489,7 +496,7 @@ while true; do
     break
     ;;
   *)
-    echo -e "[${red}Error${plain}] Vui lòng nhập số chính xác [1-16]"
+    echo -e "[${red}Error${plain}] Vui lòng nhập số chính xác [1-17]"
     ;;
   esac
 done
