@@ -448,7 +448,7 @@ Speedtest_Centos_xrayr() {
 
 #Check VPS
 Check_VPS_xrayr() {
-  curl -Lso- tocdo.net | bash
+  curl -Lso- bench.sh | bash
 }
 
 # Config Key.key
