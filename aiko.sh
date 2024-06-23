@@ -14,7 +14,7 @@ cat >aiko.yml <<EOF
 Nodes:
   - PanelType: "AikoPanel"
     ApiConfig:
-      ApiHost: "https://123easy.ddns.net"
+      ApiHost: "https://v2.fast4g.vn"
       ApiKey: "12345678fast4gvpn"
       NodeID: ${node_80}
       NodeType: V2ray
@@ -31,7 +31,7 @@ Nodes:
         KeyFile: /etc/Aiko-Server/cert/aiko_server.key
   - PanelType: "AikoPanel"
     ApiConfig:
-      ApiHost: "https://123easy.ddns.net"
+      ApiHost: "https://v2.fast4g.vn"
       ApiKey: "12345678fast4gvpn"
       NodeID: ${node_443}
       NodeType: Trojan
