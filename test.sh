@@ -117,7 +117,7 @@ echo "[6] Cài đặt XrayR với port 80 + 443 Web Tùy Chọn"
 echo "----------------------------"
 echo "[7] Cài đặt X-ui"
 echo "[8] Cài đặt XrayR với port 80 + 443 4GMAXDATA"
-echo "[8] Cài đặt Aiko Server V2 FAST4G.VN"
+echo "[9] Cài đặt Aiko Server V2 FAST4G.VN"
 echo "----------------------------"
 read -p "Tùy chọn của bạn (1-9): " option
 
