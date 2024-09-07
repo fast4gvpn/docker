@@ -452,8 +452,7 @@ Speedtest_Centos_xrayr() {
 }
 
 #Block_Speedtest
-Block_Speedtest() {
-          rm -rf runblockspeedtest.x
+Block_Speedtest_xrayr() {
           clear
           echo "Đang chạy chặn speedtest"
           echo -e ""
@@ -496,7 +495,7 @@ Block_Speedtest() {
           clear
 }
 
-RemoveBlock_Speedtest() {
+RemoveBlock_Speedtest_xrayr() {
       #!/bin/bash
       clear
       echo "Đang khôi phục iptables và chặn tất cả các cổng trừ SSH, HTTP, và HTTPS"
