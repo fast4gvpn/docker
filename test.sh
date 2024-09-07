@@ -9,7 +9,7 @@ red='\033[0;31m'
 green='\033[0;32m'
 #yellow='\033[0;33m'
 plain='\033[0m'
-operation=(Install Update UpdateConfig Logs Restart Delete OpenPort Speedtest_Ubuntu Speedtest_Centos Check_VPS Config_Key Config_Crt RestartXrayR ConfigXrayR UninstallXrayR Test_DowFile CSF_Chan_Port Nginx_Đa_Web CopyFile)
+operation=(Install Update UpdateConfig Logs Restart Delete OpenPort Speedtest_Ubuntu Speedtest_Centos Block_Speedtest RemoveBlock_Speedtest Check_VPS Config_Key Config_Crt RestartXrayR ConfigXrayR UninstallXrayR Test_DowFile CSF_Chan_Port Nginx_Đa_Web CopyFile)
 # Make sure only root can run our script
 [[ $EUID -ne 0 ]] && echo -e "[${red}Error${plain}] Chưa vào root kìa !, vui lòng xin phép ROOT trước!" && exit 1
 
@@ -449,6 +449,87 @@ Speedtest_Centos_xrayr() {
         curl -s https://install.speedtest.net/app/cli/install.rpm.sh | sudo bash
         sudo yum install speedtest
         speedtest
+}
+
+#Block_Speedtest
+Block_Speedtest() {
+          rm -rf runblockspeedtest.x
+          clear
+          echo "Đang chạy chặn speedtest"
+          echo -e ""
+          sleep 5
+          
+          # Cài đặt iptables-persistent và netfilter-persistent
+          sudo apt install -y iptables-persistent netfilter-persistent
+          
+          # Chặn các địa chỉ IP của Fast.com và Speedtest.net
+          iptables -I INPUT -s 23.198.103.141 -j DROP
+          iptables -I INPUT -s 23.41.68.21 -j DROP
+          iptables -I INPUT -s 23.199.140.37 -j DROP
+          iptables -I INPUT -s 151.101.66.219 -j DROP
+          iptables -I INPUT -s 151.101.194.219 -j DROP
+          iptables -I INPUT -s 151.101.2.219 -j DROP
+          iptables -I INPUT -s 151.101.130.219 -j DROP
+          iptables -I INPUT -s 203.119.73.32 -j DROP  # Speedtest.vn
+          
+          # Mở các cổng cần thiết
+          iptables -I INPUT -p tcp -m tcp --dport 22 -j ACCEPT
+          iptables -I INPUT -p tcp -m tcp --dport 2223 -j ACCEPT
+          iptables -I INPUT -p tcp -m tcp --dport 80 -j ACCEPT
+          iptables -I INPUT -p tcp -m tcp --dport 443 -j ACCEPT
+          
+          # Lưu các quy tắc iptables
+          iptables-save > /etc/iptables/rules.v4
+          
+          # Khởi động và bật netfilter-persistent
+          systemctl start netfilter-persistent
+          systemctl restart netfilter-persistent
+          systemctl enable netfilter-persistent
+          
+          # Kiểm tra trạng thái
+          systemctl status netfilter-persistent
+          
+          clear
+          echo "Đã chặn speedtest thành công!"
+          echo -e ""
+          sleep 3
+          clear
+}
+
+RemoveBlock_Speedtest() {
+      #!/bin/bash
+      clear
+      echo "Đang khôi phục iptables và chặn tất cả các cổng trừ SSH, HTTP, và HTTPS"
+      echo -e ""
+      sleep 5
+      
+      # Xóa toàn bộ các quy tắc iptables
+      sudo iptables -F   # Xóa tất cả các quy tắc trong bảng INPUT
+      sudo iptables -X   # Xóa tất cả các chuỗi tùy chỉnh (nếu có)
+      sudo iptables -Z   # Đặt lại số liệu thống kê
+      
+      # Mở các cổng cần thiết (SSH, HTTP, HTTPS)
+      sudo iptables -I INPUT -p tcp --dport 22 -j ACCEPT  # SSH
+      sudo iptables -I INPUT -p tcp --dport 2223 -j ACCEPT  # SSH
+      sudo iptables -I INPUT -p tcp --dport 80 -j ACCEPT  # HTTP
+      sudo iptables -I INPUT -p tcp --dport 443 -j ACCEPT # HTTPS
+      
+      # Cho phép các kết nối nội bộ (loopback)
+      sudo iptables -I INPUT -i lo -j ACCEPT
+      
+      # Chặn tất cả các cổng còn lại
+      sudo iptables -P INPUT DROP  # Chính sách mặc định là DROP tất cả các kết nối vào
+      
+      # Lưu lại các quy tắc để áp dụng sau khi khởi động lại
+      sudo iptables-save > /etc/iptables/rules.v4
+      
+      # Khởi động lại dịch vụ netfilter-persistent để áp dụng các thay đổi
+      sudo systemctl restart netfilter-persistent
+      
+      clear
+      echo "Đã hoàn tất việc chặn tất cả các cổng ngoại trừ SSH, HTTP, và HTTPS"
+      sleep 3
+      clear
 }
 
 #Check VPS
