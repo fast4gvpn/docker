@@ -9,7 +9,7 @@ red='\033[0;31m'
 green='\033[0;32m'
 #yellow='\033[0;33m'
 plain='\033[0m'
-operation=(Install Update UpdateConfig Logs Restart Delete OpenPort Speedtest_Ubuntu Speedtest_Centos Block_Speedtest RemoveBlock_Speedtest Check_VPS Config_Key Config_Crt RestartXrayR ConfigXrayR UninstallXrayR Test_DowFile CSF_Chan_Port Nginx_Đa_Web CopyFile)
+operation=(Install Update UpdateConfig Logs Restart Delete OpenPort Speedtest_Ubuntu Speedtest_Centos Block_Speedtest RemoveBlock_Speedtest Check_VPS Config_Key Config_Crt RestartXrayR ConfigXrayR UninstallXrayR Test_DowFile CSF_Chan_Port Nginx_Đa_Web Ssh_Root CopyFile)
 # Make sure only root can run our script
 [[ $EUID -ne 0 ]] && echo -e "[${red}Error${plain}] Chưa vào root kìa !, vui lòng xin phép ROOT trước!" && exit 1
 
@@ -566,6 +566,40 @@ Test_DowFile_xrayr() {
   wget --no-dns-cache --no-cache --delete-after http://speedtest-vdc.vinahost.vn/files/1000MBvnh.bin
 }
 
+Ssh_Root_xrayr() {
+    echo "Tool Bật SSH Root tự động"
+    if sudo grep -q "^PermitRootLogin yes$" /etc/ssh/sshd_config; then
+      echo "SSH đăng nhập root đã được bật"
+    else
+      echo "SSH đăng nhập root chưa được bật"
+    fi
+    read -p "Bạn có muốn bật SSH đăng nhập root không? (y/n)" choice
+    if [ ${choice} == y ] || [ ${choice} == Y ]; then
+      if grep -qi "centos" /etc/*release; then
+        sudo sed -i 's/#PermitRootLogin yes/PermitRootLogin yes/g' /etc/ssh/sshd_config
+        sudo systemctl restart sshd.service
+      elif grep -qi "ubuntu" /etc/*release; then
+        sudo sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
+        sudo systemctl restart ssh
+      elif grep -qi "debian" /etc/*release; then
+        sudo sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/g' /etc/ssh/sshd_config
+        sudo systemctl restart ssh
+      else
+        echo "Phân phối Linux không được hỗ trợ"
+      fi
+      sudo sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+      sudo systemctl restart sshd.service
+      echo "Vui lòng đặt mật khẩu cho người dùng root:"
+      sudo passwd root
+      sudo sed -i 's/PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+      sudo sed -i 's/PubkeyAuthentication yes/PubkeyAuthentication no/g' /etc/ssh/sshd_config
+      sudo systemctl restart sshd.service
+    
+    else
+      echo "Đã hủy việc bật SSH đăng nhập root."
+    fi
+}
+
 #CSF_Chan_Port
 CSF_Chan_Port_xrayr() {
   cd /usr/src/
@@ -617,7 +651,7 @@ while true; do
   read -p "Vui lòng chọn một số và nhấn Enter (Enter theo mặc định ${operation[0]}): " selected
   [ -z "${selected}" ] && selected="1"
   case "${selected}" in
-   1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22)
+   1 |  2 |  3 |  4 |  5 |  6 |  7 |  8 |  9 | 10 | 11 | 12 | 13 | 14 | 15 | 16 | 17 | 18 | 19 | 20 | 21 | 22 | 23)
     echo
     echo "Bắt Đầu : ${operation[${selected} - 1]}"
     echo
@@ -625,7 +659,7 @@ while true; do
     break
     ;;
   *)
-    echo -e "[${red}Error${plain}] Vui lòng nhập số chính xác [1-22]"
+    echo -e "[${red}Error${plain}] Vui lòng nhập số chính xác [1-23]"
     ;;
   esac
 done
