@@ -623,19 +623,28 @@ Nginx_Đa_Web_xrayr() {
 
 #Delete_Cmd
 Delete_Cmd_xrayr() {
-    # Nhập số lượng lệnh cần xóa
-    read -p "Nhập số lệnh cần xóa: " number_delete
+  # Nhập số lượng lệnh cần xóa
+  read -p "Nhập số lệnh cần xóa: " number_delete
   
-    # Xóa lệnh theo số lượng người dùng đã nhập
-    for ((i=1; i<=number_delete; i++)); do
-      history -d $(history 1)
-    done
+  # Kiểm tra xem số lệnh cần xóa có lớn hơn số dòng trong lịch sử không
+  total_lines=$(history | wc -l)
   
-    # Lưu lại thay đổi vào file .bash_history
-    history -w
-  
-    echo "Đã xóa $number_delete lệnh gần nhất khỏi lịch sử lệnh."
+  if (( number_delete > total_lines )); then
+    echo "Số lệnh cần xóa vượt quá số dòng trong lịch sử hiện tại ($total_lines lệnh)."
+    return 1
+  fi
+
+  # Xóa lệnh theo số lượng người dùng đã nhập
+  for ((i=1; i<=number_delete; i++)); do
+    history -d $(history 1)
+  done
+
+  # Lưu lại thay đổi vào file .bash_history
+  history -w
+
+  echo "Đã xóa $number_delete lệnh gần nhất khỏi lịch sử lệnh."
 }
+
 
 #CopyFile
 CopyFile_xrayr() {
