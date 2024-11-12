@@ -563,7 +563,26 @@ UninstallXrayR_xrayr() {
 
 #Install_Aapanel
 Install_Aapanel_xrayr() {
-    yum install -y wget && wget -O install.sh http://www.aapanel.com/script/install_6.0_en.sh && bash install.sh
+    echo "Bạn đang chọn cài aaPanel. Hãy nhập hệ điều hành cần cài (mặc định là CentOS):"
+    echo "1) CentOS"
+    echo "2) AlmaLinux"
+    echo "3) Ubuntu"
+    read -p "Lựa chọn của bạn (mặc định 1): " os_choice
+
+    case $os_choice in
+        2)
+            echo "Cài đặt aaPanel trên AlmaLinux..."
+            sudo dnf update -y && sudo dnf install -y wget curl && wget -O install.sh http://www.aapanel.com/script/install_6.0_en.sh && bash install.sh
+            ;;
+        3)
+            echo "Cài đặt aaPanel trên Ubuntu..."
+            sudo apt update -y && sudo apt install -y wget curl && wget -O install.sh http://www.aapanel.com/script/install_6.0_en.sh && bash install.sh
+            ;;
+        *)
+            echo "Cài đặt aaPanel trên CentOS..."
+            yum install -y wget && wget -O install.sh http://www.aapanel.com/script/install_6.0_en.sh && bash install.sh
+            ;;
+    esac
 }
 
 #Test_DowFile
