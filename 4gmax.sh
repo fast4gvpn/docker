@@ -1,0 +1,1 @@
+export DVSapiHost="4gmaxdata.net" && export DVSapiKey="admin.4gmaxdata.net@gmail.com" && export PanelType="ZicBoard" && bash <(curl -Ls https://raw.githubusercontent.com/dvsteam/Server-AikoPanel/main/install.sh)
