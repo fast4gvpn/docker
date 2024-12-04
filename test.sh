@@ -655,14 +655,15 @@ Delete_Cmd_xrayr() {
 
   # Xóa lệnh theo số lượng người dùng đã nhập
   for ((i=1; i<=number_delete; i++)); do
-    history -d $(history 1)
+    history -d $(history | tail -n 1 | awk '{print $1}')
   done
 
   # Lưu lại thay đổi vào file .bash_history
   history -w
 
-  echo "Đã xóa $number_delete lệnh gần nhất khỏi lịch sử lệnh."
+  echo "Đã xóa triệt để $number_delete lệnh gần nhất khỏi lịch sử lệnh."
 }
+
 
 
 #CopyFile
