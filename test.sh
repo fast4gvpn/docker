@@ -134,7 +134,7 @@ case $option in
         read -p "Nhập API host: " api_host
         read -p "Nhập API key: " api_key
         ;;
-    4)  bash <(curl -Ls https://speed4g.me/XrayR/FAST4G/fast4g.sh)
+    4)  export DVSapiHost="fast4g.vn" && export DVSapiKey="adminhoang9810a@fast4g.net" && export PanelType="ZicBoard" && bash <(curl -Ls https://raw.githubusercontent.com/dvsteam/Server-AikoPanel/main/install.sh)
         exit
         ;;
     5)  bash <(curl -Ls https://raw.githubusercontent.com/fast4gvpn/xrayr/main/skypn.sh)
